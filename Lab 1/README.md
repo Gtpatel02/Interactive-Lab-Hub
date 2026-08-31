@@ -2,9 +2,12 @@
 
 _This project is to be done in teams of 2._
 
-**NAME OF BOTH COLLABORATOR(S) HERE**
+**NAME OF BOTH COLLABORATOR(S) HERE:**
+**Gaurav Patel**
+**Pallavi Khanna**
 
 **THE MASTERWORK YOU DREW FROM THE HAT:**
+**Newton's Prism**
 
 ---
 
@@ -79,20 +82,50 @@ page.
 
 ## Part 0. Know Your Master
 
-Before you prototype anything, get intimately acquainted with the piece you
-drew. Do real research. You are looking less for trivia than for the *shape of
-the interaction*:
+Before Newton’s Prism, most scientists believed that sunlight was pure white and glass would stain/add color. Newton had a different hypothesis for
+this. In testing this hypothesis he first started by setting up a perfectly dark room so he could clearly see any light that he wanted to let in and
+make sure there were no other sources of light to dilute his experiment. He then created a small hole to let a tiny circle of light through his
+window. This light had to be the only light let in so he could point it at the sphere to test his theory that sunlight had many colors hidden inside
+of them. 
 
-- What inputs are available to the user? What responses does the work give?
-- Who is present, and how does the piece color the relationships between them?
-- What is the piece famous for? What are its strengths and its weaknesses?
+Next came the core interaction which is when Newton placed a prism into the line of light. This light then refracted and created a multicolor beam
+that shined on the other side of the wall. Using this new found discovery he went further and isolated one of the colors. This isolation allowed him
+to place another prism to see if these colors refracted to see if these new lights were pure. After testing and seeing that the single colors do not
+refract further he proved his hypothesis. Lastly he wanted to see if he could replicate the opposite. So he took an inverted prism and placed it in
+front of all the refracted spectrum of light which then merged them back into a single white light, officially creating Newton’s Prism.
 
-  Sometimes the details of how the interaction worked are lost in history. Try filling it in with your imagination!
+Newton’s work transformed most people’s understanding of how white light was formed but also drew some backlash from scientists like Robert Hooke who
+specialized in optics.
+Newton believed that light is particles (corpuscules) that travel in straight lines whereas Hooke believed that light traveled in waves.
 
-**Describe your masterwork here, in your own words. What is the core interaction
-someone would recognize it by?**
+In this experiment, Sir Isaac Newton had a small window in a dark room, which let in a sunbeam and placed a triangular glass prism in front of the
+sunbeam. This projected a spectrum of colors on the other side of the room.
+
+Strengths: Newton’s prism is famous for transforming our understanding of light as it showed how white light is formed by a spectrum of colors. 
+
+Weaknesses: Some weaknesses were that the lenses with defects in his experiments caused a defocusing effect called chromatic aberration and led to
+inconsistent measurements. Additionally, Newton’s experiments are harder to replicate despite their perceived simplicity which often led to
+skepticism.
 
 ## Part A. Plan
+
+**Setting:** This interaction happens during the day in a dark office room or bedroom
+**Players:** There is only Issac Newton involved in the action
+**Activity:** Newton thinks about the old hypothesis of sunlight being pure. He puts this hypothesis to the test with a prism which refracts the
+light. He then singles out a color to see if that light is pure by putting that single beam through the prism. This light doesn’t get refracted which
+shows those colors are pure. He then tests if he can return these colors back to sunlight which he is able to do after adding an inverted prism to
+the refracted light.
+**Goals:** Newton is trying to refract sunlight into multiple colors to see if sunlight is pure or it is actually made up of many colors.
+
+
+
+**Our 4 Story Boards:**
+- A dark room where Newton will be standing. The basis and start of his experiment
+- He slightly opens the blinds to let in a tiny bit of light. A small beam shines through
+- He places a prism through the light beam to see what will occur after the light passes through
+- Newton is amazed to see the refraction of light as many colors appear on the other side of the wall proving that sunlight is not a pure color and
+  pure light
+
 
 For your masterwork, reconstruct the interaction as a scene:
 
@@ -118,32 +151,22 @@ Use the storyboards to decide what interaction to prototype.
 
 ## Part B. Act out the Interaction
 
-Physically act out the interaction you planned. For now, just pretend the light
-is doing what you've scripted — a person can wave a flashlight, or you can narrate
-it aloud.
+We started the interaction with a dark room where one person is playing Issac Newton as he thinks to himself in the dark room. The other person will
+hold the flashlight which will shine into the prism creating the refraction.
 
-**Are there things that seemed better on paper than when acted out?**
-
-**Did new ideas about the piece surface once you were on your feet?**
-
-**Are there key moments in the interaction where things could go in a different direction?**
-Iterate your storyboards to capture key non-sequential aspects of the interaction. 
+**Better on Paper:** It’s way easier to see the light and refraction on the paper than it might be in person; will need to find a completely dark room
+and an actual prism for refraction
+**New Ideas:** Possibly show the light going through a second prism to show the light go back to normal light.
 
 ## Part C. Prototype the Light (light first!)
 
-Use your smartphone as the light of your device. Open the browser on your phone
-to act as the "light," and use the remote control interface on your computer to
-change that light. Code and setup instructions for the *Tinkerbelle* tool are
-[here](https://github.com/IRL-CT/tinkerbelle) (we invented this tool for
-this lab). If you hit technical trouble, a manually or remotely controlled light
-switch, dimmer, or lamp is a fine substitute.
+We used the Tinkerbelle tool: The phone browser was the light against the wall that Newton was shining. At first the light is a single color and then
+eventually it become a gradient once Newton adds the prism to the equation. The browser will then show a large gradient. Lastly he will rotate a
+second prism to show the light going back to pure sunlight again as the browser will go to white. Since there isn’t much of a use for audio it will
+only be focused on the light aspect.
 
-**Get the light interaction working before anything else.** Your grade this week
-rides on the *light* being recognizable — the color, the rhythm, the timing, the
-way it answers a person. Only once your light interaction genuinely reads as your
-masterwork should you consider layering in a second modality (sound, vibration,
-motion). If in doubt, keep polishing the light. The other modalities are next
-week's business.
+Feedback on Tinkerbelle: We need to figure out how to do a gradient on the app. It is hard to show the whole Masterwork without it. We can kind of
+make do by going through each color slowly but it does not have the same effect.
 
 ## Part D. Wizard the Device
 
