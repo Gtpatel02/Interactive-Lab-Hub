@@ -148,7 +148,7 @@ make do by going through each color slowly but it does not have the same effect.
 
 ## Part D. Wizard the Device
 
-[![Watch the video](https://youtube.com)](https://youtube.com/shorts/zkw7GbvxGEE)
+[![Watch the video for Part D](https://youtube.com)](https://youtube.com/shorts/zkw7GbvxGEE)
 
 ## Part E. (optional) Costume the Device
 
@@ -170,11 +170,7 @@ and calm for a bedroom?
 the top of this lab: a viewer who knows the piece should recognize it; a viewer
 who doesn't should come away understanding what it's famous for. How might you illustrate the non-sequential aspects of the interaction in the sketch?
 
-**Include your video here.**
-
-**Please indicate who you collaborated with on this lab.** Be generous in
-acknowledging their contributions, and credit any other influences (YouTube,
-Github, Twitter, a friend who lent you a lamp) that informed your recreation.
+[![Watch the video for Part F](https://youtube.com)](https://youtube.com/shorts/c-4ke0_H81Y)
 
 ---
 
