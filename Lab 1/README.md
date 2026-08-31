@@ -148,12 +148,7 @@ make do by going through each color slowly but it does not have the same effect.
 
 ## Part D. Wizard the Device
 
-Set up a "wizard" arrangement so one person can secretly drive the light while
-another acts with it — this is how you make the device feel alive without
-building any real electronics. (Zoom works well for recording; you can pin the
-video feed of whichever scene you want to capture.)
-
-**Include your first attempts at recording the wizarded set-up here.**
+[![Watch the video](https://youtube.com/shorts/zkw7GbvxGEE?feature=share)](https://youtube.com)
 
 ## Part E. (optional) Costume the Device
 
