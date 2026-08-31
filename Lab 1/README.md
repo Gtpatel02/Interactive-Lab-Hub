@@ -117,6 +117,7 @@ shows those colors are pure. He then tests if he can return these colors back to
 the refracted light.
 **Goals:** Newton is trying to refract sunlight into multiple colors to see if sunlight is pure or it is actually made up of many colors.
 
+<img width="686" height="485" alt="Screenshot 2026-08-31 at 1 54 54 PM" src="https://github.com/user-attachments/assets/af505932-c408-4150-81be-54bd4c1beb93" />
 
 
 **Our 4 Story Boards:**
@@ -125,29 +126,6 @@ the refracted light.
 - He places a prism through the light beam to see what will occur after the light passes through
 - Newton is amazed to see the refraction of light as many colors appear on the other side of the wall proving that sunlight is not a pure color and
   pure light
-
-
-For your masterwork, reconstruct the interaction as a scene:
-
-- **Setting:** Where and when does this interaction happen? (a jungle, a kitchen,
-  a spaceship corridor, a nightclub, a harbor at night)
-- **Players:** Who is involved? Who else is present? Think through everyone in
-  the setting, not just the primary user.
-- **Activity:** What is happening between the players and the light?
-- **Goals:** What is each player trying to do?
-
-**Describe your setting, players, activity, and goals here.**
-
-Now **sketch a 3 storyboards** of the interaction you are recreating. (The number may depend on the thing you drew, but stretch your thinking!) They
-don't need to be beautiful, but they must capture and communicate not only the behavior of the light, but how it affects
-and the people around it. If you're new to storyboarding, read
-[this explanation](https://www.nngroup.com/articles/storyboards-visualize-ideas/).
-
-**Include pictures of your storyboards here.**
-
-Use the storyboards to decide what interaction to prototype.
-
-**Summarize the feedback you got here.**
 
 ## Part B. Act out the Interaction
 
