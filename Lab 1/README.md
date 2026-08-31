@@ -148,7 +148,7 @@ make do by going through each color slowly but it does not have the same effect.
 
 ## Part D. Wizard the Device
 
-[![Watch the video](https://youtube.com/shorts/zkw7GbvxGEE?feature=share)](https://youtube.com)
+[![Watch the video](https://youtube.com/shorts/zkw7GbvxGEE)](https://youtube.com)
 
 ## Part E. (optional) Costume the Device
 
