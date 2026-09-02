@@ -191,6 +191,7 @@ wasn't clear.
 - **Group 1: https://github.com/mado0512/Interactive-Lab-Hub/tree/Fall2026/Lab%201**
 - **Group 2: https://github.com/Nishant-Ray/Interactive-Lab-Hub/tree/Fall2026/Lab%201**
 - **Group 3: https://github.com/jUSTbEarOCk/Interactive-Lab-Hub/tree/Fall2026/Lab%201**
+- **Group 4: https://github.com/pallavi-srinivas/Interactive-Lab-Hub/blob/Fall2026/Lab%201/README.md**
 
 **Summarization:**
 Biggest problem that was noted by all 3 teams that critiqued us was that the room was too dark. They were able to identify what was going on but it
