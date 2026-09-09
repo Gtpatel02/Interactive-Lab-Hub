@@ -221,6 +221,11 @@ your response engages with what your master was really doing.
 **Document everything here — especially the storyboard and video. Photos of the
 prototype are great too.**
 
+![IMG_3577](https://github.com/user-attachments/assets/c5ea329b-7923-441a-8dc6-67124503b81e)
+
+
+
+
 ---
 
 
