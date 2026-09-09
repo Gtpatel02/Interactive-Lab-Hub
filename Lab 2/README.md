@@ -1,5 +1,10 @@
 # Interactive Prototyping: The Clock of Pi
 **NAMES OF COLLABORATORS HERE**
+Gaurav Patel gp438
+Nishant Ray nr487
+Neeha Ravula nr485
+Victor Radev vr373
+
 
 Does it feel like time is moving strangely during this semester?
 
