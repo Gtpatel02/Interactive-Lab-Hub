@@ -225,6 +225,9 @@ prototype are great too.**
 <img width="4032" height="3024" alt="IMG_3577" src="https://github.com/user-attachments/assets/9ab4c83c-beba-4a8b-9970-7d0ddc88aea8" />
 
 
+
+[![Watch the video for Part 2](https://youtube.com)](https://youtube.com/shorts/IqUtdIAmTrY)
+
 ---
 
 
