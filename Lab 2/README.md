@@ -82,6 +82,7 @@ The support for password authentication of GitHub was removed on August 13, 2021
 
 Following the steps listed [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) from GitHub to set up a token. Depends on your preference, you can set up and select the scopes, or permissions, you would like to grant the token. This token will act as your GitHub password later when you use the terminal on your Pi to sync files with your lab-hub repo.
 
+**The Personal Access Token on Git and the Python Environment have been created**
 
 ## Part B. 
 ### Try out the Command Line Clock
@@ -114,6 +115,7 @@ Install the packages from the requirements.txt and run the example script `cli_c
 The terminal should show the time, you can press `ctrl-c` to exit the script.
 If you are unfamiliar with the Python code in `cli_clock.py`, have a look at [this Python refresher](https://hackernoon.com/intermediate-python-refresher-tutorial-project-ideas-and-tips-i28s320p). If you are still concerned, please reach out to the teaching staff!
 
+<img width="1086" height="68" alt="image" src="https://github.com/user-attachments/assets/99b44710-d9fb-4142-bdd1-9dd28bfcee25" />
 
 ## Part C. 
 ### Set up your RGB Display
