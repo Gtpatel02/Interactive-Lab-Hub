@@ -104,14 +104,7 @@ git config --global user.email "yourNetID@cornell.edu"
 
 ## Part E. Read Part 2. Sketch and brainstorm further interactions and features you would like for your clock.
 
-One potential source of ideas might be thinking about other clocks and timekeeping devices for inspiration.
-
-Another might be novel units of time. How do you measure a year? [In daylights? In midnights? In cups of coffee?](https://www.youtube.com/watch?v=wsj15wPpjLY)
-
-We strongly discourage literal digital or analog clock display: Be creative.
-
-
-** Insert ideas, sketches, [Verplank diagrams](https://ccrma.stanford.edu/courses/250a-fall-2004/IDSketchbok.pdf)), storyboards for your ideas **
+<img width="4277" height="2799" alt="IMG_2099" src="https://github.com/user-attachments/assets/9421d3c2-05d4-4f15-aa09-8be702bb6976" />
 
 
 
