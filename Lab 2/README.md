@@ -78,42 +78,10 @@ git config --global user.name "Your Name"
 git config --global user.email "yourNetID@cornell.edu"
 ```
 
-The support for password authentication of GitHub was removed on August 13, 2021. That is, in order to link and sync your own lab-hub repo with your Pi, you will have to set up a "Personal Access Tokens" to act as the password for your GitHub account on your Pi when using git command, such as `git clone` and `git push`.
-
-Following the steps listed [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) from GitHub to set up a token. Depends on your preference, you can set up and select the scopes, or permissions, you would like to grant the token. This token will act as your GitHub password later when you use the terminal on your Pi to sync files with your lab-hub repo.
-
 **The Personal Access Token on Git and the Python Environment have been created**
 
 ## Part B. 
 ### Try out the Command Line Clock
-Clone your own lab-hub repo for this assignment to your Pi and change the directory to Lab 2 folder (remember to replace the following command line with your own GitHub ID):
-
-```
-(venv) pi@raspberrypi:~$ git clone https://github.com/<YOURGITID>/Interactive-Lab-Hub.git
-(venv) pi@raspberrypi:~$ cd Interactive-Lab-Hub/Lab\ 2/
-```
-Depends on the setting, you might be asked to provide your GitHub user name and password. Remember to use the "Personal Access Tokens" you just set up as the password instead of your account one!
-
-Check if the directory has clone sucessfully, you should see the Interactive-Lab-Hub under the home directory listed:
-```
-(venv) pi@raspberrypi:~ $ ls
-Bookshelf      Documents            Music     Public                 venv
-create_img.sh  Downloads            pi-apps   screen_boot_script.py  Videos
-Desktop        Interactive-Lab-Hub  Pictures  Templates
-(venv) pi@raspberrypi:~ $
-```
-
-
-Install the packages from the requirements.txt and run the example script `cli_clock.py`:
-
-```
-(venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 2 $ pip install -r requirements.txt
-(venv) pi@raspberrypi:~/Interactive-Lab-Hub/Lab 2 $ python cli_clock.py 
-02/24/2021 11:20:49
-```
-
-The terminal should show the time, you can press `ctrl-c` to exit the script.
-If you are unfamiliar with the Python code in `cli_clock.py`, have a look at [this Python refresher](https://hackernoon.com/intermediate-python-refresher-tutorial-project-ideas-and-tips-i28s320p). If you are still concerned, please reach out to the teaching staff!
 
 <img width="1086" height="68" alt="image" src="https://github.com/user-attachments/assets/99b44710-d9fb-4142-bdd1-9dd28bfcee25" />
 
