@@ -98,11 +98,11 @@ animations = [
 
     # Animation 0 - 8 AM
     [
-        "p1f1.jpg",
-        "p1f2.jpg",
-        "p1f3.jpg",
-        "p1f4.jpg",
-        "p1f5.jpg",
+        "p1f1.png",
+        "p1f2.png",
+        "p1f3.png",
+        "p1f4.png",
+        "p1f5.png",
     ],
 
     # When you make the 9 AM animation, uncomment this:
