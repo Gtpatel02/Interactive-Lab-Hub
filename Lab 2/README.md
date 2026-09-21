@@ -162,11 +162,17 @@ My only concern is that displaying that many items at a high numbered time like 
 
 ## Modify the barebones clock to make it your own
 
+
 Start small, pick just one element of your overall idea, just to show you have a handle on the code and components.
 
 \*\*\***Put a copy of your code in your Lab 2 Github repo.**\*\*\*
+The code for this part is in **image.py**
 
 ## Make a short video of your modified barebones PiClock
+
+
+https://github.com/user-attachments/assets/bd1f62fb-b73f-49da-8e6b-9e2f79bd572d
+
 
 \*\*\***Take a video of your barely modified PiClock.**\*\*\*
 
@@ -182,12 +188,15 @@ After that, Git will ask you to login to your GitHub account to push the updates
 
 ## Now, make your own PiClock
 
-Do take advantage of having done the previous iteration to refine and simplify your design.
-
-** Insert any updates ideas, sketches, [Verplank diagrams](https://ccrma.stanford.edu/courses/250a-fall-2004/IDSketchbok.pdf))!, storyboards for your ideas **
-
+After we were able to successfully display and switch between images on our bare-bones clock, we generated images for each hour of Spider-Man's day
+to display on the Pi. To avoid copyright issues, we prompted our own version of a masked hero and came up with scenarios/actions he does for each
+time of day (ex: waking up at 6am, fighting a villain at 9pm, sleeping from 2am to 7am). Our scenarios were inspired by the Spider-Verse franchise,
+though we added our own twists as well. To spruce it up, we generated multiple images for each hour to simulate animation sequences and make the time
+display more film-like. We took our user feedback into consideration and decided against adding food for each hour, and instead focused on updating
+the background image so the clock is readable and not crowded.
 
 \*\*\***Put a copy of your code in your Lab 2 Github repo.**\*\*\*
+It is located in **cli_clock.py**.
 
 \*\*\***Take a video of your PiClock.**\*\*\*
 
