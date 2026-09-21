@@ -54,21 +54,17 @@ backlight.value = True
 
 
 # ============================================================
-# BUTTON
-# ============================================================
-
-# Button connected between GPIO 23 and GND
-
-button = digitalio.DigitalInOut(board.D23)
-button.direction = digitalio.Direction.INPUT
-button.pull = digitalio.Pull.UP
-
-
-# ============================================================
-# IMAGE FOLDER
+# SETTINGS
 # ============================================================
 
 IMAGE_FOLDER = "images"
+
+# 0.15 seconds between frames
+# Lower = faster animation
+FRAME_DELAY = 0.15
+
+# Number of animation frames per scene
+FRAMES_PER_ANIMATION = 5
 
 
 # ============================================================
@@ -82,40 +78,49 @@ font = ImageFont.truetype(
 
 
 # ============================================================
-# ANIMATIONS
+# HOUR -> ANIMATION NUMBER
+# ============================================================
+#
+# p1  = 8 AM
+# p2  = 9 AM
+# p3  = 10 AM
+# ...
+# p16 = 11 PM
+# p17 = 12 AM
+# p18 = 1 AM
+# p19 = sleeping (2 AM - 7 AM)
+#
 # ============================================================
 
-# Each entry represents one scene/time period.
-#
-# p1 = 8 AM
-# p2 = 9 AM
-# p3 = 10 AM
-# etc.
-#
-# For now, only add animations that actually exist.
+hour_to_animation = {
+    8: 1,
+    9: 2,
+    10: 3,
+    11: 4,
+    12: 5,
+    13: 6,
+    14: 7,
+    15: 8,
+    16: 9,
+    17: 10,
+    18: 11,
+    19: 12,
+    20: 13,
+    21: 14,
+    22: 15,
+    23: 16,
 
-animations = [
+    0: 17,
+    1: 18,
 
-    # Animation 0 - 8 AM
-    [
-        "p1f1.png",
-        "p1f2.png",
-        "p1f3.png",
-        "p1f4.png",
-        "p1f5.png",
-    ],
-
-    # When you make the 9 AM animation, uncomment this:
-    #
-    # [
-    #     "p2f1.jpg",
-    #     "p2f2.jpg",
-    #     "p2f3.jpg",
-    #     "p2f4.jpg",
-    #     "p2f5.jpg",
-    # ],
-
-]
+    # Same sleeping animation from 2 AM through 7:59 AM
+    2: 19,
+    3: 19,
+    4: 19,
+    5: 19,
+    6: 19,
+    7: 19,
+}
 
 
 # ============================================================
@@ -133,14 +138,11 @@ def load_image(filename):
     image_ratio = image.width / image.height
     screen_ratio = width / height
 
-    # Resize image while preserving aspect ratio
+    # Resize while keeping aspect ratio
     if screen_ratio < image_ratio:
-
         scaled_width = image.width * height // image.height
         scaled_height = height
-
     else:
-
         scaled_width = width
         scaled_height = image.height * width // image.width
 
@@ -166,7 +168,7 @@ def load_image(filename):
 
 
 # ============================================================
-# ADD CLOCK TO FRAME
+# ADD CLOCK TO IMAGE
 # ============================================================
 
 def add_clock(background):
@@ -175,6 +177,8 @@ def add_clock(background):
 
     draw = ImageDraw.Draw(image)
 
+    # Example:
+    # 08:42:16 AM
     current_time = time.strftime("%I:%M:%S %p")
 
     bbox = draw.textbbox(
@@ -186,12 +190,15 @@ def add_clock(background):
     text_width = bbox[2] - bbox[0]
     text_height = bbox[3] - bbox[1]
 
+    # Center horizontally
     text_x = (width - text_width) // 2
+
+    # Near bottom
     text_y = height - text_height - 12
 
     padding = 5
 
-    # Black background behind time
+    # Black background behind clock
     draw.rectangle(
         (
             text_x - padding,
@@ -202,7 +209,7 @@ def add_clock(background):
         fill=(0, 0, 0)
     )
 
-    # White time text
+    # White clock text
     draw.text(
         (text_x, text_y),
         current_time,
@@ -214,97 +221,92 @@ def add_clock(background):
 
 
 # ============================================================
-# PRELOAD ALL ANIMATIONS
+# LOAD ALL 19 ANIMATIONS
+# ============================================================
+#
+# Automatically generates:
+#
+# p1f1.png
+# p1f2.png
+# ...
+# p19f5.png
+#
 # ============================================================
 
-# Load everything into memory first.
-# This prevents JPG loading from slowing down the animation.
+print()
+print("Loading animation frames...")
+print()
 
-loaded_animations = []
+loaded_animations = {}
 
-for animation in animations:
 
-    loaded_frames = []
+for animation_number in range(1, 20):
 
-    for filename in animation:
+    loaded_animations[animation_number] = []
+
+    for frame_number in range(1, FRAMES_PER_ANIMATION + 1):
+
+        # Example:
+        # animation 1, frame 3 -> p1f3.png
+
+        filename = (
+            f"p{animation_number}"
+            f"f{frame_number}.png"
+        )
 
         frame = load_image(filename)
 
-        loaded_frames.append(frame)
-
-    loaded_animations.append(loaded_frames)
+        loaded_animations[animation_number].append(frame)
 
 
 print()
-print("Animations loaded:", len(loaded_animations))
-print("Press button to switch animation.")
+print("All animations loaded!")
 print()
 
 
 # ============================================================
-# ANIMATION SETTINGS
+# MAIN CLOCK
 # ============================================================
 
-# Smaller number = faster animation
-#
-# 0.15 = about 6.7 FPS
-# 0.10 = about 10 FPS
-
-FRAME_DELAY = 0.15
-
-
-# Start with first animation
-current_animation = 0
-
-# Start with first frame
+current_hour = None
 current_frame = 0
 
-# Used to detect a NEW button press
-last_button_state = True
-
-
-# ============================================================
-# MAIN LOOP
-# ============================================================
 
 while True:
 
     # --------------------------------------------------------
-    # CHECK BUTTON
+    # GET CURRENT HOUR
     # --------------------------------------------------------
 
-    button_state = button.value
+    hour = int(time.strftime("%H"))
 
-    # Button uses pull-up:
-    #
-    # True  = not pressed
-    # False = pressed
 
-    if last_button_state and not button_state:
+    # --------------------------------------------------------
+    # CHECK FOR HOUR CHANGE
+    # --------------------------------------------------------
 
-        # Move to next animation
-        current_animation += 1
+    if hour != current_hour:
 
-        # If we reach the end, return to animation 0
-        if current_animation >= len(loaded_animations):
-            current_animation = 0
+        current_hour = hour
 
-        # Start new animation at frame 1
+        # Restart animation at frame 1
         current_frame = 0
 
-        print(
-            "Switched to animation:",
-            current_animation + 1
-        )
+        animation_number = hour_to_animation[hour]
 
-    last_button_state = button_state
+        print()
+        print("Current hour:", hour)
+        print("Using animation: p" + str(animation_number))
+        print()
 
 
     # --------------------------------------------------------
-    # GET CURRENT ANIMATION
+    # FIND CORRECT ANIMATION
     # --------------------------------------------------------
 
-    animation = loaded_animations[current_animation]
+    animation_number = hour_to_animation[hour]
+
+    animation = loaded_animations[animation_number]
 
 
     # --------------------------------------------------------
@@ -315,14 +317,14 @@ while True:
 
 
     # --------------------------------------------------------
-    # ADD LIVE CLOCK
+    # ADD CURRENT TIME
     # --------------------------------------------------------
 
     image = add_clock(background)
 
 
     # --------------------------------------------------------
-    # DISPLAY FRAME
+    # DISPLAY IT
     # --------------------------------------------------------
 
     disp.image(image)
@@ -339,7 +341,7 @@ while True:
 
 
     # --------------------------------------------------------
-    # ANIMATION SPEED
+    # CONTROL ANIMATION SPEED
     # --------------------------------------------------------
 
     time.sleep(FRAME_DELAY)
