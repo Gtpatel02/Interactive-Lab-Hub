@@ -3,7 +3,7 @@ import os
 import digitalio
 import board
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 import adafruit_rgb_display.st7789 as st7789
 
 
@@ -57,52 +57,62 @@ backlight.value = True
 # SETTINGS
 # ============================================================
 
+# Folder containing all animation frames
 IMAGE_FOLDER = "images"
 
-# 0.15 seconds between frames
-# Lower = faster animation
+# Animation speed
+# 0.15 = about 6.7 frames per second
+#
+# Try 0.10 later if you want faster/smoother animation.
 FRAME_DELAY = 0.15
 
-# Number of animation frames per scene
+# Every animation currently has 5 frames
 FRAMES_PER_ANIMATION = 5
 
 
 # ============================================================
-# FONT
-# ============================================================
-
-font = ImageFont.truetype(
-    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-    16
-)
-
-
-# ============================================================
-# HOUR -> ANIMATION NUMBER
+# HOUR -> ANIMATION
 # ============================================================
 #
 # p1  = 8 AM
 # p2  = 9 AM
 # p3  = 10 AM
-# ...
+# p4  = 11 AM
+# p5  = 12 PM
+# p6  = 1 PM
+# p7  = 2 PM
+# p8  = 3 PM
+# p9  = 4 PM
+# p10 = 5 PM
+# p11 = 6 PM
+# p12 = 7 PM
+# p13 = 8 PM
+# p14 = 9 PM
+# p15 = 10 PM
 # p16 = 11 PM
 # p17 = 12 AM
 # p18 = 1 AM
-# p19 = sleeping (2 AM - 7 AM)
+# p19 = 2 AM - 7 AM
 #
 # ============================================================
 
 hour_to_animation = {
+
+    # Morning
     8: 1,
     9: 2,
     10: 3,
     11: 4,
+
+    # Afternoon
     12: 5,
     13: 6,
     14: 7,
     15: 8,
     16: 9,
     17: 10,
+
+    # Evening
     18: 11,
     19: 12,
     20: 13,
@@ -110,10 +120,11 @@ hour_to_animation = {
     22: 15,
     23: 16,
 
+    # Midnight / early morning
     0: 17,
     1: 18,
 
-    # Same sleeping animation from 2 AM through 7:59 AM
+    # Sleeping animation
     2: 19,
     3: 19,
     4: 19,
@@ -124,34 +135,55 @@ hour_to_animation = {
 
 
 # ============================================================
-# LOAD IMAGE
+# LOAD AND RESIZE IMAGE
 # ============================================================
 
 def load_image(filename):
 
-    filepath = os.path.join(IMAGE_FOLDER, filename)
+    filepath = os.path.join(
+        IMAGE_FOLDER,
+        filename
+    )
 
     print("Loading:", filepath)
 
+    # Open PNG
     image = Image.open(filepath).convert("RGB")
 
+    # Calculate aspect ratios
     image_ratio = image.width / image.height
     screen_ratio = width / height
 
-    # Resize while keeping aspect ratio
+    # --------------------------------------------------------
+    # RESIZE WHILE KEEPING ASPECT RATIO
+    # --------------------------------------------------------
+
     if screen_ratio < image_ratio:
-        scaled_width = image.width * height // image.height
+
+        scaled_width = (
+            image.width * height // image.height
+        )
+
         scaled_height = height
+
     else:
+
         scaled_width = width
-        scaled_height = image.height * width // image.width
+
+        scaled_height = (
+            image.height * width // image.width
+        )
 
     image = image.resize(
         (scaled_width, scaled_height),
         Image.BICUBIC
     )
 
-    # Center crop
+
+    # --------------------------------------------------------
+    # CENTER CROP
+    # --------------------------------------------------------
+
     x = scaled_width // 2 - width // 2
     y = scaled_height // 2 - height // 2
 
@@ -168,54 +200,20 @@ def load_image(filename):
 
 
 # ============================================================
-# ADD CLOCK TO IMAGE
-# ============================================================
-def add_clock(background):
-
-    image = background.copy()
-
-    draw = ImageDraw.Draw(image)
-
-    # Example:
-    # 08:42:16 AM
-    current_time = time.strftime("%I:%M:%S %p")
-
-    bbox = draw.textbbox(
-        (0, 0),
-        current_time,
-        font=font
-    )
-
-    text_width = bbox[2] - bbox[0]
-    text_height = bbox[3] - bbox[1]
-
-    # Center horizontally
-    text_x = (width - text_width) // 2
-
-    # Near bottom of screen
-    text_y = height - text_height - 12
-
-    # Draw time directly onto image in RED
-    # No black background
-    draw.text(
-        (text_x, text_y),
-        current_time,
-        font=font,
-        fill=(255, 0, 0)
-    )
-
-    return image
-
-
-# ============================================================
-# LOAD ALL 19 ANIMATIONS
+# PRELOAD ALL ANIMATIONS
 # ============================================================
 #
-# Automatically generates:
+# Filenames are automatically generated:
 #
 # p1f1.png
 # p1f2.png
+# p1f3.png
+# p1f4.png
+# p1f5.png
+#
+# p2f1.png
 # ...
+#
 # p19f5.png
 #
 # ============================================================
@@ -227,27 +225,46 @@ print()
 loaded_animations = {}
 
 
+# There are 19 animations
 for animation_number in range(1, 20):
 
     loaded_animations[animation_number] = []
 
-    for frame_number in range(1, FRAMES_PER_ANIMATION + 1):
 
+    # Each animation has 5 frames
+    for frame_number in range(
+        1,
+        FRAMES_PER_ANIMATION + 1
+    ):
+
+        # Automatically create filename
+        #
         # Example:
-        # animation 1, frame 3 -> p1f3.png
+        # animation_number = 3
+        # frame_number = 2
+        #
+        # filename = p3f2.png
 
         filename = (
             f"p{animation_number}"
             f"f{frame_number}.png"
         )
 
+
+        # Load and resize the frame
         frame = load_image(filename)
 
-        loaded_animations[animation_number].append(frame)
+
+        # Store frame in memory
+        loaded_animations[
+            animation_number
+        ].append(frame)
 
 
 print()
+print("==============================")
 print("All animations loaded!")
+print("==============================")
 print()
 
 
@@ -256,6 +273,8 @@ print()
 # ============================================================
 
 current_hour = None
+
+# Start each animation on frame 1
 current_frame = 0
 
 
@@ -265,56 +284,73 @@ while True:
     # GET CURRENT HOUR
     # --------------------------------------------------------
 
-    hour = int(time.strftime("%H"))
+    # Returns 0 - 23
+    #
+    # Example:
+    # 8 AM  -> 8
+    # 4 PM  -> 16
+    # 12 AM -> 0
+
+    hour = int(
+        time.strftime("%H")
+    )
 
 
     # --------------------------------------------------------
-    # CHECK FOR HOUR CHANGE
+    # CHECK IF THE HOUR CHANGED
     # --------------------------------------------------------
 
     if hour != current_hour:
 
         current_hour = hour
 
-        # Restart animation at frame 1
+        # Restart new animation from frame 1
         current_frame = 0
 
-        animation_number = hour_to_animation[hour]
+        animation_number = (
+            hour_to_animation[hour]
+        )
 
         print()
-        print("Current hour:", hour)
-        print("Using animation: p" + str(animation_number))
+        print("==============================")
+        print("Hour:", hour)
+        print(
+            "Playing animation:",
+            "p" + str(animation_number)
+        )
+        print("==============================")
         print()
 
 
     # --------------------------------------------------------
-    # FIND CORRECT ANIMATION
+    # FIND ANIMATION FOR CURRENT TIME
     # --------------------------------------------------------
 
-    animation_number = hour_to_animation[hour]
+    animation_number = (
+        hour_to_animation[hour]
+    )
 
-    animation = loaded_animations[animation_number]
-
-
-    # --------------------------------------------------------
-    # GET CURRENT FRAME
-    # --------------------------------------------------------
-
-    background = animation[current_frame]
+    animation = (
+        loaded_animations[animation_number]
+    )
 
 
     # --------------------------------------------------------
-    # ADD CURRENT TIME
+    # GET CURRENT ANIMATION FRAME
     # --------------------------------------------------------
 
-    image = add_clock(background)
+    frame = animation[current_frame]
 
 
     # --------------------------------------------------------
-    # DISPLAY IT
+    # DISPLAY FRAME
     # --------------------------------------------------------
 
-    disp.image(image)
+    # No clock text.
+    # No black box.
+    # Just the animation.
+
+    disp.image(frame)
 
 
     # --------------------------------------------------------
@@ -323,12 +359,18 @@ while True:
 
     current_frame += 1
 
+
+    # --------------------------------------------------------
+    # LOOP ANIMATION
+    # --------------------------------------------------------
+
     if current_frame >= len(animation):
+
         current_frame = 0
 
 
     # --------------------------------------------------------
-    # CONTROL ANIMATION SPEED
+    # ANIMATION SPEED
     # --------------------------------------------------------
 
     time.sleep(FRAME_DELAY)
