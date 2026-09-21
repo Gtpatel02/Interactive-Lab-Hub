@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
-# SPDX-License-Identifier: MIT
-
 import time
 import os
 import digitalio
@@ -20,10 +17,8 @@ reset_pin = digitalio.DigitalInOut(board.D24)
 
 BAUDRATE = 24000000
 
-# Set up SPI
 spi = board.SPI()
 
-# Create the display
 disp = st7789.ST7789(
     spi,
     cs=cs_pin,
@@ -59,6 +54,17 @@ backlight.value = True
 
 
 # ============================================================
+# BUTTON
+# ============================================================
+
+# Button connected between GPIO 23 and GND
+
+button = digitalio.DigitalInOut(board.D23)
+button.direction = digitalio.Direction.INPUT
+button.pull = digitalio.Pull.UP
+
+
+# ============================================================
 # IMAGE FOLDER
 # ============================================================
 
@@ -76,45 +82,40 @@ font = ImageFont.truetype(
 
 
 # ============================================================
-# IMAGE FOR EACH HOUR
+# ANIMATIONS
 # ============================================================
 
-hour_images = {
+# Each entry represents one scene/time period.
+#
+# p1 = 8 AM
+# p2 = 9 AM
+# p3 = 10 AM
+# etc.
+#
+# For now, only add animations that actually exist.
 
-    # Morning
-    8:  "01_08AM_Waking_Up_320x240.jpg",
-    9:  "02_09AM_Brushing_Teeth_320x240.jpg",
-    10: "03_10AM_Eating_Breakfast_320x240.jpg",
-    11: "04_11AM_Going_to_Class_320x240.jpg",
+animations = [
 
-    # Afternoon
-    12: "05_12PM_Sitting_on_a_Building_320x240.jpg",
-    13: "06_01PM_Eating_Lunch_320x240.jpg",
-    14: "07_02PM_MidDay_Swing_320x240.jpg",
-    15: "08_03PM_Gym_320x240.jpg",
-    16: "09_04PM_Walking_Grandma_320x240.jpg",
-    17: "10_05PM_With_Chloe_320x240.jpg",
+    # Animation 0 - 8 AM
+    [
+        "p1f1.jpg",
+        "p1f2.jpg",
+        "p1f3.jpg",
+        "p1f4.jpg",
+        "p1f5.jpg",
+    ],
 
-    # Evening
-    18: "11_06PM_Getting_Pizza_320x240.jpg",
-    19: "12_07PM_Getting_Chai_320x240.jpg",
-    20: "13_08PM_Doing_Homework_320x240.jpg",
-    21: "14_09PM_Stopping_a_Villain_320x240.jpg",
-    22: "15_10PM_With_Grandfather_320x240.jpg",
-    23: "16_11PM_Visiting_a_Memorial_320x240.jpg",
+    # When you make the 9 AM animation, uncomment this:
+    #
+    # [
+    #     "p2f1.jpg",
+    #     "p2f2.jpg",
+    #     "p2f3.jpg",
+    #     "p2f4.jpg",
+    #     "p2f5.jpg",
+    # ],
 
-    # Midnight / early morning
-    0: "17_12AM_Hanging_Upside_Down_320x240.jpg",
-    1: "18_01AM_Getting_into_Bed_320x240.jpg",
-
-    # Sleeping from 2 AM through 7:59 AM
-    2: "19_02AM-07AM_Sleeping_320x240.jpg",
-    3: "19_02AM-07AM_Sleeping_320x240.jpg",
-    4: "19_02AM-07AM_Sleeping_320x240.jpg",
-    5: "19_02AM-07AM_Sleeping_320x240.jpg",
-    6: "19_02AM-07AM_Sleeping_320x240.jpg",
-    7: "19_02AM-07AM_Sleeping_320x240.jpg",
-}
+]
 
 
 # ============================================================
@@ -123,24 +124,23 @@ hour_images = {
 
 def load_image(filename):
 
-    # Create path such as:
-    # images/01_08AM_Waking_Up_320x240.jpg
     filepath = os.path.join(IMAGE_FOLDER, filename)
 
     print("Loading:", filepath)
 
-    # Open image
     image = Image.open(filepath).convert("RGB")
 
-    # Calculate image and screen aspect ratios
     image_ratio = image.width / image.height
     screen_ratio = width / height
 
-    # Resize while maintaining aspect ratio
+    # Resize image while preserving aspect ratio
     if screen_ratio < image_ratio:
+
         scaled_width = image.width * height // image.height
         scaled_height = height
+
     else:
+
         scaled_width = width
         scaled_height = image.height * width // image.width
 
@@ -149,7 +149,7 @@ def load_image(filename):
         Image.BICUBIC
     )
 
-    # Crop and center the image
+    # Center crop
     x = scaled_width // 2 - width // 2
     y = scaled_height // 2 - height // 2
 
@@ -166,65 +166,16 @@ def load_image(filename):
 
 
 # ============================================================
-# MAIN CLOCK
+# ADD CLOCK TO FRAME
 # ============================================================
 
-current_hour = None
-background_image = None
+def add_clock(background):
 
-while True:
-
-    # --------------------------------------------------------
-    # GET CURRENT HOUR
-    # --------------------------------------------------------
-
-    # %H gives us the hour from 0-23
-    hour = int(time.strftime("%H"))
-
-
-    # --------------------------------------------------------
-    # CHANGE PICTURE WHEN THE HOUR CHANGES
-    # --------------------------------------------------------
-
-    if hour != current_hour:
-
-        current_hour = hour
-
-        # Find the image for this hour
-        filename = hour_images[hour]
-
-        print("Current hour:", hour)
-        print("Changing image to:", filename)
-
-        # Load new background image
-        background_image = load_image(filename)
-
-
-    # --------------------------------------------------------
-    # COPY THE BACKGROUND
-    # --------------------------------------------------------
-
-    # We copy it so drawing the time does not permanently
-    # modify our original background image.
-
-    image = background_image.copy()
+    image = background.copy()
 
     draw = ImageDraw.Draw(image)
 
-
-    # --------------------------------------------------------
-    # GET CURRENT TIME
-    # --------------------------------------------------------
-
-    # Example:
-    # 04:25:31 PM
-
     current_time = time.strftime("%I:%M:%S %p")
-
-
-    # --------------------------------------------------------
-    # CALCULATE SIZE OF TIME TEXT
-    # --------------------------------------------------------
 
     bbox = draw.textbbox(
         (0, 0),
@@ -235,24 +186,12 @@ while True:
     text_width = bbox[2] - bbox[0]
     text_height = bbox[3] - bbox[1]
 
-
-    # --------------------------------------------------------
-    # POSITION TIME
-    # --------------------------------------------------------
-
-    # Center horizontally
     text_x = (width - text_width) // 2
-
-    # Put it near the bottom
     text_y = height - text_height - 12
-
-
-    # --------------------------------------------------------
-    # DRAW BLACK BOX BEHIND TIME
-    # --------------------------------------------------------
 
     padding = 5
 
+    # Black background behind time
     draw.rectangle(
         (
             text_x - padding,
@@ -263,11 +202,7 @@ while True:
         fill=(0, 0, 0)
     )
 
-
-    # --------------------------------------------------------
-    # DRAW CURRENT TIME
-    # --------------------------------------------------------
-
+    # White time text
     draw.text(
         (text_x, text_y),
         current_time,
@@ -275,16 +210,136 @@ while True:
         fill=(255, 255, 255)
     )
 
+    return image
+
+
+# ============================================================
+# PRELOAD ALL ANIMATIONS
+# ============================================================
+
+# Load everything into memory first.
+# This prevents JPG loading from slowing down the animation.
+
+loaded_animations = []
+
+for animation in animations:
+
+    loaded_frames = []
+
+    for filename in animation:
+
+        frame = load_image(filename)
+
+        loaded_frames.append(frame)
+
+    loaded_animations.append(loaded_frames)
+
+
+print()
+print("Animations loaded:", len(loaded_animations))
+print("Press button to switch animation.")
+print()
+
+
+# ============================================================
+# ANIMATION SETTINGS
+# ============================================================
+
+# Smaller number = faster animation
+#
+# 0.15 = about 6.7 FPS
+# 0.10 = about 10 FPS
+
+FRAME_DELAY = 0.15
+
+
+# Start with first animation
+current_animation = 0
+
+# Start with first frame
+current_frame = 0
+
+# Used to detect a NEW button press
+last_button_state = True
+
+
+# ============================================================
+# MAIN LOOP
+# ============================================================
+
+while True:
 
     # --------------------------------------------------------
-    # DISPLAY IMAGE + TIME
+    # CHECK BUTTON
+    # --------------------------------------------------------
+
+    button_state = button.value
+
+    # Button uses pull-up:
+    #
+    # True  = not pressed
+    # False = pressed
+
+    if last_button_state and not button_state:
+
+        # Move to next animation
+        current_animation += 1
+
+        # If we reach the end, return to animation 0
+        if current_animation >= len(loaded_animations):
+            current_animation = 0
+
+        # Start new animation at frame 1
+        current_frame = 0
+
+        print(
+            "Switched to animation:",
+            current_animation + 1
+        )
+
+    last_button_state = button_state
+
+
+    # --------------------------------------------------------
+    # GET CURRENT ANIMATION
+    # --------------------------------------------------------
+
+    animation = loaded_animations[current_animation]
+
+
+    # --------------------------------------------------------
+    # GET CURRENT FRAME
+    # --------------------------------------------------------
+
+    background = animation[current_frame]
+
+
+    # --------------------------------------------------------
+    # ADD LIVE CLOCK
+    # --------------------------------------------------------
+
+    image = add_clock(background)
+
+
+    # --------------------------------------------------------
+    # DISPLAY FRAME
     # --------------------------------------------------------
 
     disp.image(image)
 
 
     # --------------------------------------------------------
-    # UPDATE EVERY SECOND
+    # MOVE TO NEXT FRAME
     # --------------------------------------------------------
 
-    time.sleep(1)
+    current_frame += 1
+
+    if current_frame >= len(animation):
+        current_frame = 0
+
+
+    # --------------------------------------------------------
+    # ANIMATION SPEED
+    # --------------------------------------------------------
+
+    time.sleep(FRAME_DELAY)
