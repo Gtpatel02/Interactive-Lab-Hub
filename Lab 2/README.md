@@ -196,9 +196,13 @@ display more film-like. We took our user feedback into consideration and decided
 the background image so the clock is readable and not crowded.
 
 \*\*\***Put a copy of your code in your Lab 2 Github repo.**\*\*\*
+
 It is located in **cli_clock.py**.
 
 \*\*\***Take a video of your PiClock.**\*\*\*
+[![Watch the video](https://youtube.com/shorts/OLUb-G72180?feature=share)](https://youtube.com/shorts/OLUb-G72180?feature=share)
+
+
 
 
 As always, make sure you document contributions and ideas from others (and AI) explicitly in your writeup.
