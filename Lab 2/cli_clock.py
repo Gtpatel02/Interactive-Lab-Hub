@@ -170,7 +170,6 @@ def load_image(filename):
 # ============================================================
 # ADD CLOCK TO IMAGE
 # ============================================================
-
 def add_clock(background):
 
     image = background.copy()
@@ -193,28 +192,16 @@ def add_clock(background):
     # Center horizontally
     text_x = (width - text_width) // 2
 
-    # Near bottom
+    # Near bottom of screen
     text_y = height - text_height - 12
 
-    padding = 5
-
-    # Black background behind clock
-    draw.rectangle(
-        (
-            text_x - padding,
-            text_y - padding,
-            text_x + text_width + padding,
-            text_y + text_height + padding
-        ),
-        fill=(0, 0, 0)
-    )
-
-    # White clock text
+    # Draw time directly onto image in RED
+    # No black background
     draw.text(
         (text_x, text_y),
         current_time,
         font=font,
-        fill=(255, 255, 255)
+        fill=(255, 0, 0)
     )
 
     return image
