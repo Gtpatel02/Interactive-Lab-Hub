@@ -1,6 +1,6 @@
 # Chatterboxes
 
-**NAMES OF COLLABORATORS HERE**: Nishant Ray (nr487), Gaurav Patel (gp438), Neeha Ravula (nr485), Ammar Syed (as4422)
+**NAMES OF COLLABORATORS HERE:** Nishant Ray (nr487), Gaurav Patel (gp438), Neeha Ravula (nr485), Ammar Syed (as4422)
 
 [![Watch the video](https://user-images.githubusercontent.com/1128669/135009222-111fe522-e6ba-46ad-b6dc-d1633d21129c.png)](https://youtu.be/LZ0VJClIlRI?si=Yy84mcyVYuVV19mn)
 
@@ -109,7 +109,11 @@ The demo script also shows `--output-raw`, which streams audio to the speaker as
 \*\***Write your own shell file to use your favorite of these TTS engines to have your Pi greet you by name.**\*\*
 (This shell file should be saved to your own repo for this lab.)
 
+Created `speech_scripts/part_a.sh` to use `en_US-kusal-medium` via Piper.
+
 \*\***Then answer: Is the same greeting, in these different voices, the same greeting? Describe one concrete way the voice changed what the utterance seemed to mean or who seemed to be speaking.**\*\*
+
+> Not really. The words are the same, but each voice has a different tone and sounds very different because it's a different speaker/mechanism of generating voice. For example, when they each say "I hope you've been well" it almost means something different due to the different voices. In espeak, it comes out very robotic and flat, almost sounds like it doesn't really mean it or care. The Festival one is a bit better but is very monotone and automated sounding, every word seems to have the same pitch. Piper's actually sounded pretty good and genuine, with natural pauses and increased stress and variable pitch on different words. It made the user/me feel like it actually cared/the message was meaningful.
 
 ## B. Speech to Text
 
@@ -131,12 +135,11 @@ Available sizes, smallest first: `tiny.en`, `base.en`, `small.en`, `medium.en`. 
 
 \*\***Record a few seconds of your own speech (`arecord -d 5 -f cd -c 1 -r 16000 test.wav`) and transcribe it with at least two model sizes. Report the real-time factor for each. At what point does the accuracy improvement stop being worth the delay, for a system that has to answer you?**\*\*
 
-Base.en: Real-time factor - 0.35x
-Small.en: Real-time factor - 1.02x
-tiny.en: Real-time factor - 0.20x
-medium.en: Real-time factor - 2.90x
+> Recorded speech into `speech_scripts/test.wav`. Transcribed it with `tiny.en` and `base.en`. With `tiny.en`,  the real-time factor was `0.25x`. With `base.en`, the real-time fator was `0.42x`. The accuracy improvement stops being worth the delay when a larger model makes the conversation noticeably slower without meaningfully reducing transcription errors. In your test, base.en took 0.86 seconds longer than tiny.en but produced essentially the same words, so tiny.en offers the better trade-off for that recording. If it frequently misunderstands requests, a slower, more accurate model could be worth it. From these numbers, it seems that a model with a real-time factor greater than 1.0 would not be worth it as well.
 
 \*\***Write your own script that verbally asks for a numerical input (a phone number, zipcode, number of pets) and records the answer the respondent provides.**\*\* Numbers are a good stress test — transcription systems make characteristic errors on digit strings, and you will want to know what they are before you design around them.
+
+> Created `speech_scripts/part_b.sh` to obtain the zip code of the user.
 
 ## C. Turn-taking: knowing when someone has stopped talking
 
@@ -157,6 +160,8 @@ Speak, pause, and watch it transcribe. Now change the endpointing threshold — 
 ```
 
 \*\***Try both extremes, and something in between. Describe what each one feels like to talk to. Note specifically: at 0.2s, what kinds of normal speech get cut off? At 1.5s, what does the delay make the system seem like?**\*\*
+
+> There is no correct value. A system that takes drink orders and a system that listens to someone think out loud want very different thresholds, and the right one depends on what your users are doing with their pauses. At 0.2 seconds, the system cut my voice short. I said "I'd like a coffee um with oat milk and acutally to make it a large" but it only captured "with oat milk and actually make it a large." Pauses and filler words were treated as the end of my turn. At 1.5s it captured the entire sentence but I had to wait for a bit in silence afterwards. The 1.5s made be a bit unsure on whether I was done or what the status was. In between at 0.6 seconds it caught my sentence and replied much quicker.
 
 There is no correct value. A system that takes drink orders and a system that listens to someone think out loud want very different thresholds, and the right one depends on what your users are doing with their pauses.
 
@@ -180,13 +185,27 @@ Write out what you imagine the dialogue to be. Use cards, post-its, or whatever 
 
 Your script should include the pauses. Where does your device wait, and for how long? You now know from Part C that this is a parameter you have to choose, not something that happens for free.
 
+<img width="3212" height="3304" alt="IMG_4628" src="https://github.com/user-attachments/assets/18875e66-d5ab-48a9-976d-aeee40795488" />
+
+We chose a speech-enabled vending machine because it provides a simple, familiar interaction that can be completed through a short conversation. We started with the successful path: the machine asks what snack the user wants, the user chooses, and the machine confirms before announcing that the snack is ready. We then considered alternative responses, including an unavailable snack, an incorrect selection, and silence. These became branches in the diagram, allowing the machine to repeat the available options, accept a correction, or cancel the interaction. We chose a five-second listening window for selecting a snack and a three-second window for confirmation because choosing a snack may take longer than answering yes or no. We also simplified the system by making the snacks free and not having any payment, allowing us to focus on asking for a snack, recognizing the response, and confirming the selection.
+
 ## E. Acting out the dialogue
 
 Find a partner, and *without sharing the script with your partner* try out the dialogue you've designed, where you (as the device designer) act as the device you are designing. Please record this interaction (for example, using Zoom's record feature).
 
 \*\***Describe if the dialogue seemed different than what you imagined when it was acted out, and how.**\*\*
 
+[Here is our recording!](https://drive.google.com/file/d/1If0gT5JYrgCUZfPp079eUhKI9P43WqOS/view?usp=sharing)
 
+The dialogue felt less natural when acted out than we had imagined. We designed the platform to only recognize certain words exactly, so having to repeat the options after that felt awkward because their choice was already clear. The fixed listening windows also created pauses even when my partner answered immediately. We would improve the interaction by accepting more natural phrases, and responding sooner when the user finishes speaking if possible.
+
+Feedback from other groups:
+- [Group #1](https://github.com/Morinzzz/Interactive-Lab-Hub/tree/Fall2026/Lab%203)
+  - I really like the idea of vending machine and the states of the machine. I think the states you came up with covered every scenario possible. Maybe the machine can just ask for the snack, no need for welcome message, or maybe indicate how long the welcome message will last.
+- [Group #2](https://github.com/9JAyemi/Interactive-Lab-Hub/tree/Fall2026/Lab%203)
+  - I like the overall idea for this project and I think the interface is cool. One piece of advice I would say is maybe have the machine not reply too fast in order to process the language of the chosen snack correctly.
+- [Group #3]()
+  - 
 ---
 
 # Lab 3 Part 2
@@ -195,10 +214,16 @@ For Part 2, you will redesign the interaction with the speech-enabled device usi
 
 ## Prep for Part 2
 
-1. What are concrete things that could use improvement in the design of your device? For example: wording, timing, anticipation of misunderstandings.
+1. What are concrete things that could use improvement in the design of your device? For example: wording, timing, anticipation of misunderstandings.> 
+
+> From the dialogue we found a few issues. Options were hidden, the first thing the partner said was what are the options and the machine doesn't really answer that question. It's also annoying for the transcriptoin to match the exact wording of the item and rely on that to select the snack. Another thing is that listening windows are very fixed and some snacks have a longer name or the user might be thinking a lot.
+
 2. What are other modes of interaction *beyond speech* that you might also use to clarify how to interact? In particular: how does someone know when the device is listening, and when it is thinking? You have a screen and an LED.
-3. Make a new storyboard, diagram and/or script based on these reflections.
-4. (optional) Integrate [input devices](inputs.md) in the system
+
+> We can use the joystick for browsing through the vending machine items. This addresses the what are the options questions as users can see and figure it out themselves. The screen can show the currently selected item/menu one by one. We can show on the LED the current state on whether the device is listening or speaking or dispensing.
+
+4. Make a new storyboard, diagram and/or script based on these reflections.
+5. (optional) Integrate [input devices](inputs.md) in the system
 
 ## Prototype your system
 
