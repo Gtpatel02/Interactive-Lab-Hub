@@ -272,7 +272,25 @@ As you develop your Feast Automata concept, consider where the sensor and actuat
 
 **\*\*\*What questions do these sketches raise? What do you need to physically prototype to answer them?\*\*\***
 
+#### Questions:
+1. Can the capacitive sensor detect a touch through copper tape on a lid that’s handled constantly, or will normal jar handling cause false triggers?
+2. Does the proximity sensor inside the rim reliably detect a hand entering the jar, or do the cookies themselves set it off?
+3. Does the device need a base to keep it stable when the servo moves?
+4. Should the jar react differently the more cookies someone takes, for example by escalating from a raised eyebrow to a slap?
+5. At what distance should the face start “judging”? If it’s too sensitive, it reacts to people walking past; if it’s not sensitive enough, it reacts after the cookie is already gone.
+
+#### What we physically prototype:
+- Copper tape on the jar lid with the cap sensor
+- Proximity sensor at the jar rim
+- Cardboard arms of different lengths on the servo
+- A cardboard base or housing for the electronics
+- Cardboard faces and signs
+- Physically move the prototype ourselves
+
+
 **\*\*\*Pick one design to prototype and explain why.\*\*\***
+We have decided to choose the first design, Don't Touch Lid Slapper.
+We chose this because first off, the capacitive touch on the lid is the most direct trigger, since you have to touch the lid to open the jar. It is also pretty funny and it is very easy to see what it is trying to do, keep you healthier so you don't eat cookies. Also we can fit everything under the jar so it is easy to keep hidden and act like it's a normal jar even if it is not.
 
 Build a cardboard or other low-fidelity physical prototype of your design.
 
