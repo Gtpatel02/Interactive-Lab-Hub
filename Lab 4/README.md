@@ -180,13 +180,17 @@ A servo motor is a rotary actuator that allows for precise control of angular po
 - Physically move the prototype ourselves
 
 
-**\*\*\*Pick one design to prototype and explain why.\*\*\***
+**\*\*\*Pick one design to prototype and explain why.\*\*\*** <br>
 We have decided to choose the first design, Don't Touch Lid Slapper.
 We chose this because first off, the capacitive touch on the lid is the most direct trigger, since you have to touch the lid to open the jar. It is also pretty funny and it is very easy to see what it is trying to do, keep you healthier so you don't eat cookies. Also we can fit everything under the jar so it is easy to keep hidden and act like it's a normal jar even if it is not.
 
 Build a cardboard or other low-fidelity physical prototype of your design.
 
 **\*\*\*Document your rough prototype with photos and/or video.\*\*\***
+
+
+https://github.com/user-attachments/assets/c1e52f81-7a15-419d-998d-360845a73dab
+
 
 ---
 
@@ -200,33 +204,25 @@ Following exploration and reflection from Part 1, complete the "looks like," "wo
 
 #### Build & Integrate: Sensing + Actuation
 
-For Part 2, build the Feast Automata interaction you developed in Part D by connecting sensing/input to physical actuation.
-
-**Your prototype should:**
-- Use at least one sensing or input device.
-- Use servo-based physical actuation.
-- Connect sensing and actuation into a meaningful interaction around eating, drinking, cooking, serving, or sharing food.
-- Additional inputs, displays, LEDs, buttons, or other outputs are optional extensions.
-
-**Document your system with:**
-- Code for your sensing + actuation prototype
-- Photos and/or video of the working prototype in action
-- A simple interaction diagram or sketch showing how sensing and actuation are connected
-- Written reflection: What did you learn about connecting sensing, movement, and physical form? What was fun, surprising, or challenging?
-
 **Questions to consider:**
-- How does your chosen sensor or input shape the physical response?
+- How does your chosen sensor or input shape the physical response? <br>
 We used capacitive touch through copper tape on the lid, so the jar only reacts when someone actually touches the lid. That’s the moment they’re about to take a cookie. Because the trigger is so direct, the response can be direct too: the arm slaps the hand that touched the lid. A touch either happens or it doesn’t, so the jar can’t tell how close someone is. That’s why we made it react to how many times you try instead of how close you get. The 1st touch gets a warning wiggle and “I see you. Put it down.” The 2nd gets one slap. The 3rd and after get a double slap and “Cookie police!” The code only counts a new touch, not a hand resting on the lid, so holding the lid doesn’t set off a string of slaps. The only issue we did have is that when we moved the sensor/jar, there seemed to be a response that was given but besides that it would only work when we touched the jar.
-- How does the physical arrangement of the sensor and actuator change the interaction?
+
+- How does the physical arrangement of the sensor and actuator change the interaction?<br>
 The copper tape is on the lid and the servo arm is mounted right next to it, so the slap lands where the hand is. That makes the cause and effect obvious, because you touch the lid and get slapped right there. We put the electronics on top of a box next to the jar. The USB speaker gives the jar a voice, so it feels like a character scolding you instead of a machine. It tells you that it is a normal cookie jar until you touch the lid and the moment you do it scolds you.
-- What thresholds, timing, or movement patterns make the interaction feel clear or playful?
+
+- What thresholds, timing, or movement patterns make the interaction feel clear or playful?<br>
 1. Escalation: the jar gets angrier each time, so people understand they’re being warned and keep trying to see what happens next. That’s the playful part.
 2. Slap motion: the arm swings out fast and pauses for 0.25 seconds so the hit lands, then comes back slowly. That makes it look like a deliberate slap, not a twitch.
 3. Speaking while slapping: the jar talks at the same time the arm moves, so the line and the slap feel like one reaction.
 4. Cooldown: a 1-second pause after each reaction keeps one long grab from counting as several touches.
 5. Calm-down: after 10 seconds with no touches, the jar resets and says “Just a normal cookie jar.” That makes it feel like it’s pretending to be innocent again.
-- What changes when you adjust the sensor placement or servo motion?
+
+- What changes when you adjust the sensor placement or servo motion?<br>
 What changes is that the smaller the hand the easier it stays upright rather than being floppy. Also the speed is fast but not fast enough to hurt. It's fast enough to react and immediately hit someone if they touch the jar but not fast enough to hurt them.
+
+
+https://github.com/user-attachments/assets/999a5164-82cb-4b15-b23e-4c67b2af6ec6
 
 ---
 
@@ -253,6 +249,18 @@ Someone walks up to what looks like a normal cookie jar and reaches for the lid.
 
 ### Final Documentation
 
+
+Prototype 1:
+https://github.com/user-attachments/assets/7d802096-be6c-43c8-85b5-e233bc2e2be4
+
+Prototype 2:
+https://github.com/user-attachments/assets/742926b0-bb95-4eeb-9d1d-1287a5414fbd
+
+Prototype 3:
+https://github.com/user-attachments/assets/a41c5547-42a4-4ec3-ab51-b06c8515ccda
+
+
+<img width="4284" height="5712" alt="IMG_7871" src="https://github.com/user-attachments/assets/b28d3608-c712-4a08-83ef-95e82e88526c" />
 
 
 ---
