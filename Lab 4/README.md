@@ -67,6 +67,22 @@ Color Test:
 
 #### Rotary Encoder 
 
+A rotary encoder is an electro-mechanical device that converts the angular position to analog or digital output signals. The [Adafruit rotary encoder](https://www.adafruit.com/product/4991#technical-details) we ordered for you came pre-soldered, so you do NOT need to solder anything.
+<p float="left">
+
+   
+<img src="https://cdn-shop.adafruit.com/970x728/377-02.jpg" height="200" />
+<img src="https://cdn-shop.adafruit.com/970x728/4991-09.jpg" height="200">
+</p>
+
+Connect it to your pi with Qwiic connector and try running the example script, it comes with an additional button which might be useful for your design!
+
+```
+(circuitpython) pi@ixe00:~/Interactive-Lab-Hub/Lab 4 $ python encoder_test.py
+```
+
+You can go to the [Adafruit Learn Page](https://learn.adafruit.com/adafruit-i2c-qt-rotary-encoder/python-circuitpython) to learn more about the sensor! The sensor actually comes with an LED (neo pixel): Can you try lighting it up?
+
 Encoder Test:
 
 <img width="1003" height="486" alt="rotary" src="https://github.com/user-attachments/assets/5f902644-3246-46e5-86b4-85c3ed074e6f" />
