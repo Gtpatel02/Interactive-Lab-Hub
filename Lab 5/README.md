@@ -249,6 +249,9 @@ One person came in from the right, moved close to the camera, and left after abo
 
 ---
 
+<img width="1708" height="922" alt="image" src="https://github.com/user-attachments/assets/73b40d3f-b683-4ecd-97e3-bd5e363e2db5" />
+
+
 # Lab 5 Part 2: Overnight Sensation
 
 For Part 2, you will use the observant system from Part 1 to design a night-time interaction. On-device AI is slow, so let it work while you sleep. The person meets the device twice: **before bed**, when they hand the night over, and **when awake**, when the device gives something back. In between, the pipeline from Part E runs on its own.
