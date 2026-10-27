@@ -171,8 +171,47 @@ A 0.8B model is slow and sometimes wrong. It will invent events that are not in 
 
 \*\*\***Ask Qwen three questions to answer. Paste the questions, the answers and how long each took. Try one of them with `qwen3:0.6b` and compare.**\*\*\*
 
+### Reason: run Qwen on the Pi with Ollama
+
+We asked `qwen3.5:0.8b` three questions through `ask_qwen.py` (thinking off, three-sentence instruction, 120-token cap) and repeated the first with `qwen3:0.6b`.
+
+**Q1: "Tell me a bit about the history of Roosevelt Island."** (factual recall)
+
+**qwen3.5:0.8b (20.7 s)**
+> Roosevelt Island was originally built as a private residence for President Theodore Roosevelt, who commissioned it to house his family and office. The island's development began in 1907 when the city purchased the land from the Hudson River Company, allowing the construction of the iconic "Gilded Cage" hotel complex.
+
+**qwen3:0.6b (16.5 s)**
+> Roosevelt Island, located in the United States, has a rich history dating back to the early 19th century. It was initially a military base for the Union Army during the Civil War, and it became a significant naval base in the 19th and early 20th centuries. The island played a crucial role in the Pacific War and was home to several important military personnel, including notable figures like Admiral Nelson. Today, Roosevelt Island is a peaceful and historic site, preserving the legacy of those who once called it home.
+
+| Ground-truth fact | 0.8b | 0.6b |
+|---|---|---|
+| Formerly Blackwell's Island | ❌ | ❌ |
+| Then Welfare Island | ❌ | ❌ |
+| Renamed in 1973 | ❌ | ❌ |
+| Cornell Tech opened in 2017 | ❌ | ❌ |
+
+Both models scored 0/4 and confidently invented a history. The 0.8b model named the wrong Roosevelt (the island is named for FDR), put the island on the Hudson (it is in the East River), and made up a "Hudson River Company" and a "Gilded Cage" hotel. The 0.6b model was faster but no more accurate: it invented a Civil War Union Army base, a naval base, a role in the Pacific War and Admiral Nelson (a British admiral who died in 1805), and it ignored the three-sentence limit. Its only roughly true claim was that the island's history goes back to the early 19th century.
+
+**Q2: "What is in this photo?"**
+
+> A man with glasses and a beard is taking a selfie in a dimly lit room.
+
+Correct, including the selfie: the photo was taken holding up the webcam. This was the slowest question because the model also has to process the image, but it was the only fully accurate answer. The difference from Q1 is that here the model had real data to describe instead of recalling facts from memory.
+
+**Q3: "Why did Cornell Tech move off Roosevelt Island in 2010?"** (false premise, 7.8 s)
+
+> Cornell Tech moved to Roosevelt Island in 2010 because the city's zoning laws made it impossible for a new university campus to be built there, forcing them to relocate to nearby areas.
+
+The model accepted the false premise instead of correcting it. Cornell Tech never moved off the island; it opened there in 2017. The answer also contradicts itself (it "moved to" the island because it was impossible to build there) and invents a zoning law. This was the fastest answer (7.8 s) because the model was already loaded and the reply was short, which suggests the earlier times include model loading.
+
+**Takeaways**
+- On a Pi 5, answers take roughly 8–33 s depending on whether the model is already loaded, how long the answer is, and whether there is an image.
+- The smaller `qwen3:0.6b` was a little faster but no more accurate, and it followed the length instruction less well.
+- Asked to recall facts, both models invent confidently; given a false premise, the model plays along. Given actual data (the photo), it was accurate.
+- For our observant system this means Qwen should never answer from its own knowledge. It should only summarize the data we give it (the YOLO log), with a narrow job and a fallback for when the data is empty or unclear.
+
 <details>
-  Q&A here
+  
 </details>
 
 
