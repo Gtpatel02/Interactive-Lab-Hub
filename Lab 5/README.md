@@ -309,6 +309,9 @@ Fake a night first: run it for thirty seconds while you walk around, stop it, an
 
 \*\*\***Screenshots or videos of the running system.**\*\*\*
 
+<img width="1978" height="1122" alt="image" src="https://github.com/user-attachments/assets/d96e2dda-3055-43f1-9924-19aac31db37e" />
+
+
 ## Part I. 
 ### Design the interaction after
 
